@@ -6,13 +6,8 @@ import { UsersEffects } from './store/effects/users.effects';
 import { StoreModule } from '@mst-ngrx';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    BrowserModule,
-    StoreModule.forRoot([usersStateConfig], [UsersEffects]),
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [BrowserModule, StoreModule.forRoot([usersStateConfig], [UsersEffects], true)],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

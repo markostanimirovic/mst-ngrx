@@ -7,8 +7,11 @@ import { registerEffects } from './effects';
 
 @NgModule()
 export class StoreModule {
-
-  static forRoot(stateConfig: StateConfig<any> | StateConfig<any>[], effectsClasses: Class[]): ModuleWithProviders {
+  static forRoot(
+    stateConfig: StateConfig<any> | StateConfig<any>[],
+    effectsClasses: Class[],
+    debugMode = false,
+  ): ModuleWithProviders {
     return {
       ngModule: StoreModule,
       providers: [
@@ -16,15 +19,15 @@ export class StoreModule {
         ...effectsClasses,
         {
           provide: APP_INITIALIZER,
-          useFactory: (store: Store, ...effectsObjects) => () => {
+          useFactory: (store: Store, ...effectsObjects) => (): void => {
+            store.debugMode = debugMode;
             const effects = fromEffectsObjectsToEffects(effectsObjects);
             registerEffects(store, effects);
           },
           deps: [Store, ...effectsClasses],
-          multi: true
-        }
+          multi: true,
+        },
       ],
     };
   }
-
 }
