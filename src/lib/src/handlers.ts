@@ -1,6 +1,6 @@
-export interface StateConfig<S> {
+export interface StateConfig<T> {
   stateName: string;
-  initialState: S;
+  initialState: T;
 }
 
 export interface HandlerConfig {
@@ -10,11 +10,9 @@ export interface HandlerConfig {
   payload?;
 }
 
-export const createHandler = (type: string, stateName: string, reducer?) => {
-  return (payload?): HandlerConfig => ({
-    type,
-    stateName,
-    reducer,
-    payload,
-  });
-};
+export const createHandler = (type: string, stateName: string, reducer?) => (payload?): HandlerConfig => ({
+  type,
+  stateName,
+  reducer,
+  payload,
+});
