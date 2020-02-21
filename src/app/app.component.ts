@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { select, Store } from '@mst-ngrx';
+
+import * as fromUsers from './store/handlers/users.handlers';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'mst-ngrx';
+
+  viewModel$ = this.store.state$.pipe(select(fromUsers.stateName));
+
+  constructor(private store: Store) {}
+
+  fetchUsers() {
+    this.store.dispatch(fromUsers.fetchUsers());
+  }
+
 }
